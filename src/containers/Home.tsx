@@ -10,7 +10,14 @@ const Home: React.FC = () => {
     return (
         <div className='page-form'>
             { showSignUp ? <Signup setShowSignUp={setShowSignUp}/> : <Login/> }
-            { showSignUp ? <small>Your company already signed up with verifier?<a href='#' onClick={() => setShowSignUp(false)}> Log in here </a></small>: <small>Want to register for an account for your company to verify credentials?<a href='#' onClick={() => setShowSignUp(true)}> Sign up here </a></small>}
+            { showSignUp ? 
+                <small>Your company already signed up with verifier?
+                    <a href='#' onClick={() => setShowSignUp(false)}> Log in here </a>
+                </small>: 
+                <small>Want to register for an account for your company to verify credentials?
+                    <a href='#' onClick={() => setShowSignUp(true)}> Sign up here </a>
+                </small>
+            }
         </div>
     )
 }

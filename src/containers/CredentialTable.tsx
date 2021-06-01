@@ -19,17 +19,17 @@ const CredentialTable = () => {
       }
     }, [globalToken]);
 
-    const onClickValidate = async (token: string) => {
-      const result = await sdk!.verifyCredentialShareResponseToken(token);
-      const currentVCState = vcData
-      const newVCState = currentVCState.map((data:any) => {
-        if (data.token === token) {
-          data.validatedResult = result
-        }
-        return data
-      })
-      setVCData(newVCState)
-    }
+    // const onClickValidate = async (token: string) => {
+    //   const result = await sdk!.verifyCredentialShareResponseToken(token);
+    //   const currentVCState = vcData
+    //   const newVCState = currentVCState.map((data:any) => {
+    //     if (data.token === token) {
+    //       data.validatedResult = result
+    //     }
+    //     return data
+    //   })
+    //   setVCData(newVCState)
+    // }
 
     useEffect(() => {
       const onValidate = async (token: string) => {
@@ -39,8 +39,10 @@ const CredentialTable = () => {
         if (credentialType === 'IDDocumentCredentialPersonV1') {
           drivingClass = JSON.parse(result.suppliedCredentials[0].credentialSubject.data.hasIDDocument?.hasIDDocument.idClass).drivingClass;
         }
-
-        setVCData(prevState => [...prevState, {token, validatedResult: result, drivingClass}])
+        
+        setVCData(prevState => {
+          return [...prevState, {token, validatedResult: result, drivingClass}]
+        })
       }
       if (credentialShareResponseToken) {
         credentialShareResponseToken.map((token: string) => {
@@ -55,32 +57,32 @@ const CredentialTable = () => {
 
     return <div>
         <Table bordered>
-              <thead className="thead-light">
+          <thead className="thead-light">
+            <tr>
+              <th>Index</th>
+              <th>Name</th>
+              <th>Driving Class</th>
+              <th>Validated</th>
+              {/* <th>Action</th> */}
+            </tr>
+          </thead>
+          <tbody>
+            {vcData.map((data, index) => {
+              return (
                 <tr>
-                  <th>Index</th>
-                  <th>Name</th>
-                  <th>Driving Class</th>
-                  <th>Validated</th>
-                  {/* <th>Action</th> */}
-                </tr>
-              </thead>
-              <tbody>
-                {vcData.map((data, index) => {
-                  return (
-                    <tr>
-                    <th scope="row">{index+1}</th>
-                    <td>{data.validatedResult.suppliedCredentials[0].credentialSubject.data.givenName}</td>
-                    <td>{data.drivingClass ? <p>{data.drivingClass}</p>:<p> No Driving Class </p> }</td>
-                    <td>{data.validatedResult.isValid ? <img src={CheckCircle} alt='check' style={{height: '28px'}} /> : 
-                        <img src={CrossCircle} alt='cross' style={{height: '28px'}} />
-                    }
-                    </td>
-                    {/* <td><Button onClick={() => onClickValidate(data.token)}>Validate</Button></td> */}
-                  </tr>
-                  )
-                })}
-              </tbody>
-            </Table>
+                <th scope="row">{index+1}</th>
+                <td>{data.validatedResult.suppliedCredentials[0].credentialSubject.data.givenName}</td>
+                <td>{data.drivingClass ? <p>{data.drivingClass}</p>:<p> No Driving Class </p> }</td>
+                <td>{data.validatedResult.isValid ? <img src={CheckCircle} alt='check' style={{height: '28px'}} /> : 
+                    <img src={CrossCircle} alt='cross' style={{height: '28px'}} />
+                }
+                </td>
+                {/* <td><Button onClick={() => onClickValidate(data.token)}>Validate</Button></td> */}
+              </tr>
+              )
+            })}
+          </tbody>
+        </Table>
     </div>
 }
 export default CredentialTable;

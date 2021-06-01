@@ -58,8 +58,9 @@ const MessageList = ({ messageList, onClick, onClose }: Props) => {
             href="javascript:void(0);"
             onClick={() => onClick(msg)}
             style={{ textDecoration: "inherit", color: "inherit" }}
+            data-testid='ee'
           >
-            <Toast.Body>
+            <Toast.Body data-testid="toast-body">
               You have a message of type <b>{msg.typ}</b>. Click to process.
             </Toast.Body>
           </a>
