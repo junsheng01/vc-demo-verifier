@@ -27,6 +27,8 @@ let mockAlert: jest.SpyInstance = jest.spyOn(window, 'alert');
 const networkMember: Wallet = new Wallet('testKey', 'testEncryptedSeed');
 const SDK_AUTHENTICATION_LOCAL_STORAGE_KEY = "affinidi:accessToken";
 
+
+
 describe('Login Test', ()=>{
 
     test('UI can render', async () => {
