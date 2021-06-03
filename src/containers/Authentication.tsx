@@ -71,8 +71,6 @@ export const AuthenticationProvider: FC = ({ children }) => {
             message,
           });
 
-          console.log(loginState);
-
           localStorage.setItem(
             SDK_AUTHENTICATION_LOCAL_STORAGE_KEY,
             sdk.accessToken
@@ -82,7 +80,6 @@ export const AuthenticationProvider: FC = ({ children }) => {
 
           return sdk;
         } catch (err) {
-          console.log(err.message);
           setLoginState({
             ...loginState,
             loading: false,
@@ -100,7 +97,6 @@ export const AuthenticationProvider: FC = ({ children }) => {
     };
 
     async function signOut() {
-      console.log(loginState)
       if (!loginState.authenticated) {
         throw new Error("you can not sign out if you are not authenticated");
       }
@@ -108,7 +104,6 @@ export const AuthenticationProvider: FC = ({ children }) => {
       setLoginState({ ...loginState, loading: true });
 
       try {
-        console.log('wefweifj')
         const result = await loginState.sdk!.signOut();
 
         localStorage.removeItem(SDK_AUTHENTICATION_LOCAL_STORAGE_KEY);
