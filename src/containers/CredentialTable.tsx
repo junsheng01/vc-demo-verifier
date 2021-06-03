@@ -19,18 +19,6 @@ const CredentialTable = () => {
       }
     }, [globalToken]);
 
-    // const onClickValidate = async (token: string) => {
-    //   const result = await sdk!.verifyCredentialShareResponseToken(token);
-    //   const currentVCState = vcData
-    //   const newVCState = currentVCState.map((data:any) => {
-    //     if (data.token === token) {
-    //       data.validatedResult = result
-    //     }
-    //     return data
-    //   })
-    //   setVCData(newVCState)
-    // }
-
     useEffect(() => {
       const onValidate = async (token: string) => {
         const result = await sdk!.verifyCredentialShareResponseToken(token);
@@ -77,7 +65,6 @@ const CredentialTable = () => {
                     <img src={CrossCircle} alt='cross' style={{height: '28px'}} />
                 }
                 </td>
-                {/* <td><Button onClick={() => onClickValidate(data.token)}>Validate</Button></td> */}
               </tr>
               )
             })}
