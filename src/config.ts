@@ -16,7 +16,7 @@ function decodeEnv(env: string): "dev" | "staging" | "prod" {
   }
 }
 
-export default {
+const config = {
   env: decodeEnv(process.env.REACT_APP_ENVIRONMENT || process.env.NODE_ENV),
   apiKey: process.env.REACT_APP_API_KEY as string,
   apiKeyHash: process.env.REACT_APP_API_KEY_HASH as string,
@@ -25,3 +25,5 @@ export default {
     process.env.REACT_APP_MESSAGES_BASE_URL ||
     `https://affinidi-messages.${decodeEnv(process.env.REACT_APP_ENVIRONMENT || process.env.NODE_ENV)}.affinity-project.org`,
 };
+
+export default config

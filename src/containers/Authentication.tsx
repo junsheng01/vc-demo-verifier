@@ -16,6 +16,7 @@ type AuthenticationContextProps = {
   authenticated: boolean;
   sdk: SdkService | undefined;
   message: MessageService | undefined;
+  setLoginState: React.Dispatch<React.SetStateAction<LoginState>>
   login: {
     fromLoginAndPassword: typeof SdkService["fromLoginAndPassword"];
   };
@@ -74,6 +75,8 @@ export const AuthenticationProvider: FC = ({ children }) => {
             SDK_AUTHENTICATION_LOCAL_STORAGE_KEY,
             sdk.accessToken
           );
+
+          
 
           return sdk;
         } catch (err) {
@@ -139,7 +142,7 @@ export const AuthenticationProvider: FC = ({ children }) => {
 
   return (
     <AuthenticationContext.Provider
-      value={{ ...loginState, login, signOut }}
+      value={{ ...loginState, setLoginState, login, signOut }}
       children={children}
     />
   );
